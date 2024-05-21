@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gharbhada/Screens/AddProperty.screen.dart';
 import 'package:gharbhada/Screens/Admin.screen.dart';
@@ -10,6 +11,7 @@ import 'package:gharbhada/Screens/SearchScreen.dart';
 import 'package:gharbhada/Screens/SignIn.screen.dart';
 import 'package:gharbhada/Screens/SignUp.screen.dart';
 import 'package:gharbhada/Screens/Home.screen.dart';
+import 'package:gharbhada/Screens/chat/chat_room.dart';
 import 'package:gharbhada/Screens/search_screen.dart';
 import 'package:gharbhada/Screens/splash.screen.dart';
 import 'package:gharbhada/features/auth/services/auth_service.dart';
@@ -18,16 +20,20 @@ import 'package:gharbhada/router.dart';
 import 'package:gharbhada/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => UserProvider()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -56,8 +62,8 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
           ? Provider.of<UserProvider>(context).user.type == 'user'
-              ? Gharbhada(
-                  key: const Key('gharbhada'),
+              ? const Gharbhada(
+                  key: Key('gharbhada'),
                 )
               : const AdminScreen()
           : GetStartedPage(),
@@ -114,7 +120,8 @@ class _GharbhadaState extends State<Gharbhada> {
         const HomePage(),
         const HomePageS(),
         // const AddProperty(),
-        ChatScreen(),
+        // ChatScreen(),
+        const ChatRoomScreen(),
         // SearchPage(),
         // AddProperty(),
         ProfilePage(),

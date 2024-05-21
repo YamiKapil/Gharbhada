@@ -3,6 +3,7 @@ import 'package:gharbhada/Screens/ChatApp.dart';
 import 'package:gharbhada/Screens/ProfilePage.screen.dart';
 import 'package:gharbhada/Screens/admin_order_view.dart';
 import 'package:gharbhada/Screens/adminpostscreen.dart';
+import 'package:gharbhada/Screens/chat/chat_room.dart';
 import 'package:gharbhada/constants/globalvariables.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -19,9 +20,10 @@ class _AdminScreenState extends State<AdminScreen> {
   double bottomBarBorderWidth = 5;
 
   List<Widget> pages = [
-    PostsScreen(),
-    AdminOrderScreen(),
-    ChatScreen(),
+    const PostsScreen(),
+    const AdminOrderScreen(),
+    // ChatScreen(),
+    const ChatRoomScreen(),
     ProfilePage()
   ];
   void updatePage(int page) {
@@ -34,7 +36,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome, Admin"),
+        title: const Text("Welcome, Admin"),
       ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(

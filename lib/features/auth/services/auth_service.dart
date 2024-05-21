@@ -1,6 +1,7 @@
 // import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gharbhada/Screens/Admin.screen.dart';
 import 'package:gharbhada/Screens/SignIn.screen.dart';
 import 'package:gharbhada/constants/error_handling.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   // sign up user
   void signUpUser({
     required BuildContext context,
@@ -89,6 +91,10 @@ class AuthService {
           String userType = userData['type'];
           print(
               'User Type: $userType, Token: ${userData['token']}, User: ${userData['user']}');
+          firestore.collection('users').doc(userData['_id']).set({
+            'id': userData['_id'],
+            'name': userData['name'],
+          });
 
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);

@@ -66,11 +66,11 @@ class _EditProfileState extends State<EditProfile> {
                       hintText: 'Name',
                     ),
                     const SizedBox(height: 10),
-                    CustomTextField(
-                      controller: _emailController,
-                      hintText: 'Email',
-                    ),
-                    const SizedBox(height: 10),
+                    // CustomTextField(
+                    //   controller: _emailController,
+                    //   hintText: 'Email',
+                    // ),
+                    // const SizedBox(height: 10),
                     SizedBox(
                       height: 45,
                       width: 300.0,

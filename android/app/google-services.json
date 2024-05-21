@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "262897230575",
+    "project_id": "gharbhada-4fbdc",
+    "storage_bucket": "gharbhada-4fbdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262897230575:android:13377333f4f59f37c2b11a",
+        "android_client_info": {
+          "package_name": "com.example.gharbhada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsbi7ah9ucd-p1RXCet_e_lv-cK7Stt3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

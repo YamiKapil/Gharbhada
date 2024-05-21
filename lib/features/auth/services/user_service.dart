@@ -32,7 +32,7 @@ class UserServices {
         Uri.parse('$uri/edit-profile'),
         body: jsonEncode({
           'name': name,
-          'email': email,
+          // 'email': email,
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
