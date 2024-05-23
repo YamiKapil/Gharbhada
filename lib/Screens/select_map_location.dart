@@ -47,6 +47,15 @@ class _SelectLocationMapsState extends State<SelectLocationMaps>
         Navigator.pop(context, latlong);
       },
       child: Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context, latlong);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+          title: const Text('Select location'),
+        ),
         body: Stack(
           children: [
             FlutterMap(

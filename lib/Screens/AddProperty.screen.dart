@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_options.dart';
@@ -5,12 +6,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gharbhada/Screens/select_map_location.dart';
 import 'package:gharbhada/components/myListTile.dart';
 import 'package:gharbhada/components/myTextField.dart';
 import 'package:gharbhada/constants/utils.dart';
 import 'package:gharbhada/features/auth/services/admin_services.dart';
 import 'package:gharbhada/providers/user_provider.dart';
 import 'package:gharbhada/widgets/custom_button.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 class AddProperty extends StatefulWidget {
@@ -28,6 +31,7 @@ class _AddPropertyState extends State<AddProperty> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController latLong = TextEditingController();
+  LatLng? latlongstatic;
 
   final AdminServices adminServices = AdminServices();
 
@@ -80,12 +84,12 @@ class _AddPropertyState extends State<AddProperty> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.arrow_back),
+          //   onPressed: () {
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
         ],
       ),
       body: SingleChildScrollView(
@@ -165,8 +169,36 @@ class _AddPropertyState extends State<AddProperty> {
                     CustomTextField(
                         controller: locationController, hintText: "Location"),
                     const SizedBox(height: 10),
-                    CustomTextField(
-                        controller: latLong, hintText: "Location LatLong"),
+                    // CustomTextField(controller: latLong, hintText: "LatLong"),
+                    TextFormField(
+                      controller: latLong,
+                      decoration: InputDecoration(
+                          hintText: 'LatLong',
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.black38,
+                          )),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Colors.black38,
+                          ))),
+                      readOnly: true,
+                      onTap: () async {
+                        final LatLng? data = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SelectLocationMaps(
+                              latlng: latlongstatic,
+                            ),
+                          ),
+                        );
+                        log(data.toString());
+                        if (data != null) {
+                          latlongstatic = data;
+                          latLong.text = "${data.latitude},${data.longitude}";
+                        }
+                      },
+                    ),
                     const SizedBox(height: 10),
                     CustomTextField(
                         controller: priceController, hintText: "Price"),

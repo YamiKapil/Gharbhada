@@ -42,6 +42,18 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 100.0,
             ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Center(
               child: Text(
                 "Edit Your Profile",
