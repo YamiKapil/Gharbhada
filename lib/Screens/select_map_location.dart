@@ -91,6 +91,7 @@ class _SelectLocationMapsState extends State<SelectLocationMaps>
                         child: const Icon(
                           Icons.location_on_outlined,
                           color: Colors.red,
+                          size: 20,
                         ),
                         rotate: true,
                       ),

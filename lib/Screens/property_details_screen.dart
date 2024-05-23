@@ -52,8 +52,11 @@ class PropertyDetailsScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            MapPage(locationAddress: property.location),
+                        builder: (context) => MapPage(
+                          locationAddress: property.location,
+                          lat: property.latLong.split(',').first,
+                          long: property.latLong.split(',').last,
+                        ),
                       ),
                     );
                   },
@@ -109,7 +112,7 @@ class PropertyDetailsScreen extends StatelessWidget {
                       userID: user!.id!,
                       status: 'pending',
                     );
-                    
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
