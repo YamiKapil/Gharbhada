@@ -196,12 +196,17 @@ class _AddPropertyState extends State<AddProperty> {
                         if (data != null) {
                           latlongstatic = data;
                           latLong.text = "${data.latitude},${data.longitude}";
+                          setState(() {});
                         }
                       },
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                         controller: priceController, hintText: "Price"),
+                    const SizedBox(height: 10),
+                    CustomTextField(
+                        controller: descriptionController,
+                        hintText: "Description"),
                     const SizedBox(height: 10),
                     const SizedBox(height: 10),
                     images.isNotEmpty

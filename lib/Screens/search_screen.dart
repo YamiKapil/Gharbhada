@@ -28,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
   fetchSearchedProperty() async {
     properties = await searchServices.fetchSearchedProperty(
         context: context, searchQuery: widget.searchQuery);
+    print('Fetched properties: $properties');
     setState(() {});
   }
 
@@ -111,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 const SizedBox(height: 10),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: properties!.length,
+                    itemCount: properties?.length ?? 0,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {

@@ -20,56 +20,52 @@ class SearchedProperty extends StatelessWidget {
       onTap: () {
         navigateToPropertyDetails(context);
       },
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 10,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        child: Row(
+          children: [
+            Image.network(
+              property.images[0],
+              fit: BoxFit.contain,
+              height: 135,
+              width: 135,
             ),
-            child: Row(
+            Column(
               children: [
-                Image.network(
-                  property.images[0],
-                  fit: BoxFit.contain,
-                  height: 135,
-                  width: 135,
+                Container(
+                  // width: 235,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    property.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                    maxLines: 2,
+                  ),
                 ),
-                Column(
-                  children: [
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        property.name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        maxLines: 2,
-                      ),
+                Container(
+                  // width: 235,
+                  padding: const EdgeInsets.only(left: 10, top: 5),
+                  child: Text(
+                    'Rs.${property.price}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.only(left: 10, top: 5),
-                      child: Text(
-                        '\Rs.${property.price}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(property.description),
-                    ),
-                  ],
+                    maxLines: 2,
+                  ),
+                ),
+                Container(
+                  // width: 235,
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(property.description),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

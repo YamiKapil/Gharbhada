@@ -27,7 +27,7 @@ class Property {
       'name': name,
       'location': location,
       'description': description,
-      'latLong': latLong,
+      'latlong': latLong,
       'price': price,
       'images': images,
     };
@@ -39,7 +39,7 @@ class Property {
       name: map['name'] ?? '',
       location: map['location'] ?? '',
       description: map['description'] ?? '',
-      latLong: map['latLong'] ?? '',
+      latLong: map['latlong'] ?? '',
       price: map['price'] ?? '',
       images: List<String>.from(map['images'] ?? []),
     );
