@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:gharbhada/constants/error_handling.dart';
 import 'package:gharbhada/constants/globalvariables.dart';
 import 'package:gharbhada/constants/utils.dart';
+import 'package:gharbhada/models/admin_order.dart';
 import 'package:gharbhada/models/order.dart';
 import 'package:gharbhada/models/property.dart';
 import 'package:gharbhada/providers/user_provider.dart';
@@ -90,7 +92,7 @@ class OrderServices {
   }
 
   // fetch all orders for admin
-  Future<List<Order>> fetchAllOrders(BuildContext context) async {
+  Future<List<AdminOrder>> fetchAllOrders(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     // List<Order> orderList;
 
@@ -105,10 +107,11 @@ class OrderServices {
 
       if (res.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(res.body);
-        final List<Order> orders = [];
+        log(jsonData.toString());
+        final List<AdminOrder> orders = [];
 
         for (var item in jsonData) {
-          orders.add(Order.fromMap(item));
+          orders.add(AdminOrder.fromMap(item));
         }
 
         return orders;

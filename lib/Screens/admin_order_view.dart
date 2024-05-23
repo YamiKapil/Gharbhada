@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gharbhada/features/auth/services/order_services.dart';
+import 'package:gharbhada/models/admin_order.dart';
 import 'package:gharbhada/models/order.dart';
 import 'package:gharbhada/widgets/ordertile.dart';
 
@@ -11,7 +12,7 @@ class AdminOrderScreen extends StatefulWidget {
 }
 
 class _AdminOrderScreenState extends State<AdminOrderScreen> {
-  List<Order>? orders;
+  List<AdminOrder>? orders;
   final OrderServices orderServices = OrderServices();
 
   @override
@@ -49,7 +50,7 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
       appBar: AppBar(
         title: const Text('Admin Order Screen'),
       ),
-      body: FutureBuilder<List<Order>>(
+      body: FutureBuilder<List<AdminOrder>>(
         future: orderServices.fetchAllOrders(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -76,8 +77,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
                 if (index < orders!.length) {
                   return OrderTile(
                     index: index,
-                    title: orders![index].property![0].name,
-                    subtitle: orders![index].property![0].price,
+                    // title: orders![index].property![0].name,
+                    // subtitle: orders![index].property![0].price,
+                    // title: orders![index].property![0].name,
+                    // subtitle: orders![index].property![0].price,
+                    title: orders![index].property?.name ?? '',
+                    subtitle: orders![index].property?.price ?? '',
                     onConfirm: () {
                       confirmOrDeleteOrder(index, true, context);
                     },
