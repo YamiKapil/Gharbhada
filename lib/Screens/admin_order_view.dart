@@ -38,7 +38,7 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
 
   // Function to confirm or delete order
   void confirmOrDeleteOrder(
-      int index, bool isConfirm, BuildContext context, Property property) {
+      int index, bool isConfirm, BuildContext context, Property? property) {
     if (isConfirm) {
       orderServices.updateOrderStatus(
           context: context,
@@ -50,15 +50,16 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         orders![index].userID,
         '',
       );
-      postNotification(
-        context,
-        property,
-        'Order id ${orders![index].property?.id ?? ''} accepted successfully.',
-        index,
-      );
-      deleteProduct(
-        property,
-      );
+      // postNotification(
+      //   context,
+      //   property,
+      //   'Order id ${orders![index].property?.id ?? ''} accepted successfully.',
+      //   index,
+      // );
+      if (property != null)
+        deleteProduct(
+          property,
+        );
     } else {
       orderServices.updateOrderStatus(
           context: context,
@@ -70,12 +71,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         orders![index].userID,
         '',
       );
-      postNotification(
-        context,
-        property,
-        'Order id ${orders![index].property?.id ?? ''} rejected',
-        index,
-      );
+      // postNotification(
+      //   context,
+      //   property,
+      //   'Order id ${orders![index].property?.id ?? ''} rejected',
+      //   index,
+      // );
     }
     // Refresh orders list after updating order status
     fetchAllOrders();
@@ -108,20 +109,20 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
     );
   }
 
-  postNotification(BuildContext context, Property property, String message,
+  postNotification(BuildContext context, Property? property, String message,
       int index) async {
     final userInfo = Provider.of<UserProvider>(context, listen: false).user;
     await notificationServices.postNotification(
       context: context,
-      description: property.description,
+      description: property?.description ?? '',
       userID: userInfo.id,
       status: orders?[index].status ?? '',
-      images: property.images,
-      latLong: property.latLong,
-      location: property.location,
+      images: property?.images ?? [],
+      latLong: property?.latLong ?? '',
+      location: property?.location ?? '',
       message: message,
-      name: property.name,
-      price: property.price,
+      name: property?.name ?? '',
+      price: property?.price ?? '',
     );
   }
 
@@ -166,11 +167,11 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
                     subtitle: orders![index].property?.price ?? 'test',
                     onConfirm: () {
                       confirmOrDeleteOrder(
-                          index, true, context, orders![index].property!);
+                          index, true, context, orders![index].property);
                     },
                     onDelete: () {
                       confirmOrDeleteOrder(
-                          index, false, context, orders![index].property!);
+                          index, false, context, orders![index].property);
                     },
                   );
                 } else {

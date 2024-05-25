@@ -28,7 +28,9 @@ class Order {
       id: map['_id'] ?? '',
       userID: map['userID'] ?? '',
       status: map['status'] ?? '',
-      property: [Property.fromMap(map['propertyID'])],
+      property: map['propertyID'] != null
+          ? [Property.fromMap(map['propertyID'])]
+          : null,
     );
   }
 
