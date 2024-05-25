@@ -18,9 +18,11 @@ class NotificationServices {
     List<NotificationModel> notificaitonList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/api/notifications'), headers: {
+          await http.post(Uri.parse('$uri/api/notifications'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
+        // 'x-auth-token': userProvider.user.token,
+      }, body: {
+        'userID': userProvider.user.id,
       });
       log(res.body.toString());
 
@@ -75,7 +77,7 @@ class NotificationServices {
         body: order.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
+          // 'x-auth-token': userProvider.user.token,
         },
       );
 

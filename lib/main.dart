@@ -1,23 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gharbhada/Screens/AddProperty.screen.dart';
 import 'package:gharbhada/Screens/Admin.screen.dart';
-import 'package:gharbhada/Screens/ChatApp.dart';
-import 'package:gharbhada/Screens/MapScreen.dart';
-import 'package:gharbhada/Screens/OTP.screen.dart';
-import 'package:gharbhada/Screens/ProfilePage.screen.dart';
-import 'package:gharbhada/Screens/Search.screen.dart';
-import 'package:gharbhada/Screens/SearchScreen.dart';
-import 'package:gharbhada/Screens/SignIn.screen.dart';
-import 'package:gharbhada/Screens/SignUp.screen.dart';
 import 'package:gharbhada/Screens/Home.screen.dart';
+import 'package:gharbhada/Screens/ProfilePage.screen.dart';
+import 'package:gharbhada/Screens/SearchScreen.dart';
 import 'package:gharbhada/Screens/chat/chat_room.dart';
-import 'package:gharbhada/Screens/search_screen.dart';
-import 'package:gharbhada/Screens/splash.screen.dart';
 import 'package:gharbhada/features/auth/services/auth_service.dart';
 import 'package:gharbhada/getStarted.dart';
-import 'package:gharbhada/router.dart';
 import 'package:gharbhada/providers/user_provider.dart';
+import 'package:gharbhada/router.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

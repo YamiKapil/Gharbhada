@@ -50,12 +50,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         orders![index].userID,
         '',
       );
-      // postNotification(
-      //   context,
-      //   property,
-      //   'Order id ${orders![index].property?.id ?? ''} accepted successfully.',
-      //   index,
-      // );
+      postNotification(
+        context,
+        property,
+        'Order id ${orders![index].property?.id ?? ''} accepted successfully.',
+        index,
+      );
       if (property != null)
         deleteProduct(
           property,
@@ -71,12 +71,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         orders![index].userID,
         '',
       );
-      // postNotification(
-      //   context,
-      //   property,
-      //   'Order id ${orders![index].property?.id ?? ''} rejected',
-      //   index,
-      // );
+      postNotification(
+        context,
+        property,
+        'Order id ${orders![index].property?.id ?? ''} rejected',
+        index,
+      );
     }
     // Refresh orders list after updating order status
     fetchAllOrders();
@@ -156,7 +156,7 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
               itemCount: orders!.length,
               itemBuilder: (context, index) {
                 // Ensure index is valid before accessing the orders list
-                if (index < orders!.length) {
+                if (index < orders!.length && orders![index].property != null) {
                   return OrderTile(
                     index: index,
                     // title: orders![index].property![0].name,
