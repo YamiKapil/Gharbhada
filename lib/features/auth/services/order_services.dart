@@ -126,7 +126,7 @@ class OrderServices {
   }
 
 // update order status
-  void updateOrderStatus({
+  Future<void> updateOrderStatus({
     required BuildContext context,
     required String orderID,
     required String status,

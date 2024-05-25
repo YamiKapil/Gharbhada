@@ -33,12 +33,14 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
   // Function to fetch all orders
   Future<void> fetchAllOrders() async {
     orders = await orderServices.fetchAllOrders(context);
-    setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {});
+    });
   }
 
   // Function to confirm or delete order
-  void confirmOrDeleteOrder(
-      int index, bool isConfirm, BuildContext context, Property? property) {
+  void confirmOrDeleteOrder(int index, bool isConfirm, BuildContext context,
+      Property? property) async {
     if (isConfirm) {
       orderServices.updateOrderStatus(
           context: context,
@@ -61,11 +63,11 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
           property,
         );
     } else {
-      orderServices.updateOrderStatus(
+      await orderServices.updateOrderStatus(
           context: context,
           status: 'rejected',
           orderID: orders![index].id.toString());
-      sendMessage(
+      await sendMessage(
         context,
         'Order id ${orders![index].property?.id ?? ''} rejected',
         orders![index].userID,
@@ -79,6 +81,7 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
       // );
     }
     // Refresh orders list after updating order status
+    Future.delayed(Duration.zero);
     fetchAllOrders();
   }
 
@@ -87,12 +90,14 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
       context: context,
       property: property,
       onSuccess: () {
-        setState(() {});
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          setState(() {});
+        });
       },
     );
   }
 
-  void sendMessage(
+  Future<void> sendMessage(
     BuildContext context,
     String text,
     String userId,
