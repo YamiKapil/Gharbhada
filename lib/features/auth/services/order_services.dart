@@ -107,13 +107,14 @@ class OrderServices {
 
       if (res.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(res.body);
-        log(jsonData.toString());
+        // log(jsonData.toString());
         final List<AdminOrder> orders = [];
 
         for (var item in jsonData) {
+          log(item.toString());
           orders.add(AdminOrder.fromMap(item));
         }
-
+        // log(orders.toString(), name: 'orderss');
         return orders;
       } else {
         throw Exception('Failed to load orders');

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gharbhada/features/auth/services/admin_services.dart';
+import 'package:gharbhada/features/auth/services/chat_service.dart';
 import 'package:gharbhada/features/auth/services/order_services.dart';
 import 'package:gharbhada/models/admin_order.dart';
 import 'package:gharbhada/models/order.dart';
+import 'package:gharbhada/models/property.dart';
+import 'package:gharbhada/providers/user_provider.dart';
 import 'package:gharbhada/widgets/ordertile.dart';
+import 'package:provider/provider.dart';
 
 class AdminOrderScreen extends StatefulWidget {
   const AdminOrderScreen({super.key});
@@ -14,6 +19,8 @@ class AdminOrderScreen extends StatefulWidget {
 class _AdminOrderScreenState extends State<AdminOrderScreen> {
   List<AdminOrder>? orders;
   final OrderServices orderServices = OrderServices();
+  final AdminServices adminServices = AdminServices();
+  final ChatService chatService = ChatService();
 
   @override
   void initState() {
@@ -28,20 +35,63 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
   }
 
   // Function to confirm or delete order
-  void confirmOrDeleteOrder(int index, bool isConfirm, BuildContext context) {
+  void confirmOrDeleteOrder(
+      int index, bool isConfirm, BuildContext context, Property property) {
     if (isConfirm) {
       orderServices.updateOrderStatus(
           context: context,
           status: 'completed',
           orderID: orders![index].id.toString());
+      sendMessage(
+        context,
+        'Order id ${orders![index].property?.id ?? ''} accepted successfully. Pay Now',
+        orders![index].userID,
+        '',
+      );
+      deleteProduct(
+        property,
+      );
     } else {
       orderServices.updateOrderStatus(
           context: context,
           status: 'rejected',
           orderID: orders![index].id.toString());
+      sendMessage(
+        context,
+        'Order id ${orders![index].property?.id ?? ''} rejected',
+        orders![index].userID,
+        '',
+      );
     }
     // Refresh orders list after updating order status
     fetchAllOrders();
+  }
+
+  void deleteProduct(Property property) {
+    adminServices.deleteProperty(
+      context: context,
+      property: property,
+      onSuccess: () {
+        setState(() {});
+      },
+    );
+  }
+
+  void sendMessage(
+    BuildContext context,
+    String text,
+    String userId,
+    String userName,
+  ) async {
+    final userInfo = Provider.of<UserProvider>(context, listen: false).user;
+
+    await chatService.sendMessage(
+      message: text,
+      receiverId: userId,
+      receiverName: userName,
+      senderId: userInfo.id,
+      senderName: userInfo.name,
+    );
   }
 
   @override
@@ -81,13 +131,15 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
                     // subtitle: orders![index].property![0].price,
                     // title: orders![index].property![0].name,
                     // subtitle: orders![index].property![0].price,
-                    title: orders![index].property?.name ?? '',
-                    subtitle: orders![index].property?.price ?? '',
+                    title: orders![index].property?.name ?? 'test',
+                    subtitle: orders![index].property?.price ?? 'test',
                     onConfirm: () {
-                      confirmOrDeleteOrder(index, true, context);
+                      confirmOrDeleteOrder(
+                          index, true, context, orders![index].property!);
                     },
                     onDelete: () {
-                      confirmOrDeleteOrder(index, false, context);
+                      confirmOrDeleteOrder(
+                          index, false, context, orders![index].property!);
                     },
                   );
                 } else {

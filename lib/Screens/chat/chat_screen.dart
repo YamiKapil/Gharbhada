@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gharbhada/Screens/chat/chat_bubble.dart';
 import 'package:gharbhada/components/myTextField.dart';
 import 'package:gharbhada/features/auth/services/chat_service.dart';
+import 'package:gharbhada/features/payment_service.dart';
 import 'package:gharbhada/models/user.dart';
 import 'package:gharbhada/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -105,6 +106,34 @@ class _ChatScreenState extends State<ChatScreen> {
           ChatBubble(
             message: data['message'],
           ),
+          if (data['message']
+              .toString()
+              .contains('accepted successfully. Pay Now'))
+            const SizedBox(height: 4),
+          if (data['message']
+              .toString()
+              .contains('accepted successfully. Pay Now'))
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 40, 88, 192),
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EsewaScreen(
+                      productId: '',
+                      amount: '200',
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                "Pay Now",
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
           const SizedBox(height: 10),
         ],
       ),

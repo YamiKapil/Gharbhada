@@ -48,6 +48,7 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_messaging: ^14.7.16
   cloud_firestore: ^4.15.5
+  esewa: ^1.0.1 # for esewa payment
 
 dev_dependencies:
   flutter_test:

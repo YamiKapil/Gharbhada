@@ -34,7 +34,8 @@ class _ProportyListingsState extends State<ProportyListings> {
 
   fetchOrder() async {
     orders = await orderServices.fetchOrder(context: context);
-    print('At My Order: ${orders![0].property![0].name}');
+    // print('At My Order: ${orders![0].property![0].name}');
+    // print('At My Order: ${orders.toString()}');
     setState(() {});
   }
 

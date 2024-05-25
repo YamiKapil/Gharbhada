@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // String uri = 'http://10.0.2.2:5123';
 String uri = 'http://localhost:5123';
+String pythonuri = 'http://127.0.0.1:8000/predict';
 
 // String uri = 'http://192.168.1.73:5123';
 
