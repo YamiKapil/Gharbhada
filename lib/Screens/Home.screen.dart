@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gharbhada/Screens/property_details_screen.dart';
+import 'package:gharbhada/Screens/recommend/recommend_screen.dart';
 import 'package:gharbhada/Screens/search_screen.dart';
 import 'package:gharbhada/components/HomeCard.dart';
 import 'package:gharbhada/constants/globalvariables.dart';
@@ -56,16 +57,28 @@ class _HomePageState extends State<HomePage> {
       //   ),
       // ),
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: AppBar(
-            title: Text(
-              "Welcome to Ghar Bhada",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          title: Text(
+            "Welcome to Ghar Bhada",
+            style: TextStyle(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecommendScreen(),
+                  ),
+                );
+              },
+              child: Icon(Icons.recommend),
             ),
-          )),
+          ],
+        ),
+      ),
       body: propertyList == null
           ? Loader()
           : propertyList!.length == 0
