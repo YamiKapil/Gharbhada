@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gharbhada/Screens/notificaiton/notification_screen.dart';
 import 'package:gharbhada/components/HomeCard.dart';
 import 'package:gharbhada/features/auth/services/order_services.dart';
 import 'package:gharbhada/features/auth/services/property_details_services.dart';
@@ -44,6 +45,19 @@ class _ProportyListingsState extends State<ProportyListings> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Your Order"),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationScreen(),
+                ),
+              );
+            },
+            child: Icon(Icons.notifications),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: orderServices.fetchOrder(context: context),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gharbhada/features/auth/services/admin_services.dart';
 import 'package:gharbhada/features/auth/services/chat_service.dart';
+import 'package:gharbhada/features/auth/services/notification_service.dart';
 import 'package:gharbhada/features/auth/services/order_services.dart';
 import 'package:gharbhada/models/admin_order.dart';
 import 'package:gharbhada/models/order.dart';
@@ -21,6 +22,7 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
   final OrderServices orderServices = OrderServices();
   final AdminServices adminServices = AdminServices();
   final ChatService chatService = ChatService();
+  final NotificationServices notificationServices = NotificationServices();
 
   @override
   void initState() {
@@ -48,6 +50,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         orders![index].userID,
         '',
       );
+      postNotification(
+        context,
+        property,
+        'Order id ${orders![index].property?.id ?? ''} accepted successfully.',
+        index,
+      );
       deleteProduct(
         property,
       );
@@ -61,6 +69,12 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
         'Order id ${orders![index].property?.id ?? ''} rejected',
         orders![index].userID,
         '',
+      );
+      postNotification(
+        context,
+        property,
+        'Order id ${orders![index].property?.id ?? ''} rejected',
+        index,
       );
     }
     // Refresh orders list after updating order status
@@ -91,6 +105,23 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
       receiverName: userName,
       senderId: userInfo.id,
       senderName: userInfo.name,
+    );
+  }
+
+  postNotification(BuildContext context, Property property, String message,
+      int index) async {
+    final userInfo = Provider.of<UserProvider>(context, listen: false).user;
+    await notificationServices.postNotification(
+      context: context,
+      description: property.description,
+      userID: userInfo.id,
+      status: orders?[index].status ?? '',
+      images: property.images,
+      latLong: property.latLong,
+      location: property.location,
+      message: message,
+      name: property.name,
+      price: property.price,
     );
   }
 
