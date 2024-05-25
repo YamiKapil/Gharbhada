@@ -46,17 +46,17 @@ class _ProportyListingsState extends State<ProportyListings> {
       appBar: AppBar(
         title: Text("Your Order"),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NotificationScreen(),
-                ),
-              );
-            },
-            child: Icon(Icons.notifications),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => NotificationScreen(),
+          //       ),
+          //     );
+          //   },
+          //   child: Icon(Icons.notifications),
+          // ),
         ],
       ),
       body: FutureBuilder(
